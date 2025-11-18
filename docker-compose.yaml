@@ -1,25 +1,4 @@
 services:
-  # terraform:
-  #   image: hashicorp/terraform:1.13
-  #   # entrypoint: sh
-  #   entrypoint: tail -f /dev/null
-  #   volumes:
-  #     - ./terraform/infra:/workspace/oci-infra
-  #     # - ./oci-infra/:/workspace/oci-infra
-  #     - ./credentials/.oci:/root/.oci
-  #   working_dir: /workspace
-  # oci:
-  #   build: ./docker/.
-  #   image: custom-oci-with-kubectl:0.1
-  #   #image: ghcr.io/oracle/oci-cli:latest
-  #   # entrypoint: sh
-  #   entrypoint: tail -f /dev/null
-  #   volumes:
-  #     - ./credentials/.oci:/root/.oci
-  #     - ./credentials/.kube:/root/.kube
-  #     # - ./k8s-services:/root/k8s-services
-  #   # environment:
-  #   #   - KUBECONFIG=~/.kube/free-k8s-config
   aio:
     build: 
       context: ./docker

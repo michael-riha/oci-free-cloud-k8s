@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"name": "📦 Setup Infrastructure on Oracle (oci-cli, terraform, kubectl, sealed-secret)",
+			"path": "./"
+		},
+		{
+			"name": "-----------------------",	
+			"path": "delimiter-dummy-folders/"
+		},
+		{
+			"name": "🔗 GitOps (ArgoCD) - Resources on OKE (Oracle kubernetes Engine)",	
+			"path": "k8s-default-resources/"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"./k8s-default-resources": true,
+		},
+		// "search.exclude": {
+		// 		"./k8s-default-resources/": true
+		// },
+		"git.ignoreLimitWarning": true,
+		"git.path": "git",
+	}
+}
