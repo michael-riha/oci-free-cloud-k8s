@@ -55,3 +55,10 @@ Sessionx.vim
 tags
 # Persistent undo
 [._]*.un~
+
+# Ignore k8s default resources content
+k8s-default-ressources/**
+credentials/.kube/**
+credentials/.oci/**
+credentials/.ssh/**
+credentials/argo-ssh/*.secret

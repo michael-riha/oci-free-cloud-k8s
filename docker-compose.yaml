@@ -1,0 +1,44 @@
+services:
+  # terraform:
+  #   image: hashicorp/terraform:1.13
+  #   # entrypoint: sh
+  #   entrypoint: tail -f /dev/null
+  #   volumes:
+  #     - ./terraform/infra:/workspace/oci-infra
+  #     # - ./oci-infra/:/workspace/oci-infra
+  #     - ./credentials/.oci:/root/.oci
+  #   working_dir: /workspace
+  # oci:
+  #   build: ./docker/.
+  #   image: custom-oci-with-kubectl:0.1
+  #   #image: ghcr.io/oracle/oci-cli:latest
+  #   # entrypoint: sh
+  #   entrypoint: tail -f /dev/null
+  #   volumes:
+  #     - ./credentials/.oci:/root/.oci
+  #     - ./credentials/.kube:/root/.kube
+  #     # - ./k8s-services:/root/k8s-services
+  #   # environment:
+  #   #   - KUBECONFIG=~/.kube/free-k8s-config
+  aio:
+    build: 
+      context: ./docker
+      dockerfile: Dockerfile.aio
+    image: terraform-oci-kubectl-kubeseal:0.1
+    #image: ghcr.io/oracle/oci-cli:latest
+    # entrypoint: sh
+    entrypoint: tail -f /dev/null
+    volumes:
+      - ./credentials/.oci:/root/.oci
+      - ./credentials/.kube:/root/.kube
+      - ./terraform/infra:/workspace/oci-infra
+      # for services deployment and `kubeseal`
+      - ./credentials/argo-ssh:/workspace/argo-ssh
+      # TODO: make this even more modular!
+      - ./k8s-default-ressources:/workspace/k8s-default-ressources
+    ports:
+      - 8080:8080 # for argoCD portforwarding
+      - 8181:8181 # for oci authentication portforwarding
+    working_dir: /workspace
+    # environment:
+    #   - KUBECONFIG=~/.kube/free-k8s-config
