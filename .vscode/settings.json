@@ -1,0 +1,5 @@
+{
+    "files.exclude": {
+        "**/k8s-default-resources": true,
+    }
+}
