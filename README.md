@@ -1,3 +1,11 @@
+# Oracle Inital Setup
+
+- Create an Account
+- [Get & Setup the necessary credentials for your OCI CLI](./credentials/README.md) to create Ressources with Terraform
+
+
+---
+
 # ⎈ Oracle Cloud Kubernetes free tier setup
 
 This repository leverages Oracle Cloud's [always free tier][oci-free-tier] to provision a kubernetes cluster.

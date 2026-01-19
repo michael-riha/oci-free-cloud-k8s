@@ -60,5 +60,7 @@ tags
 k8s-default-ressources/**
 credentials/.kube/**
 credentials/.oci/**
+!credentials/.oci/.gitkeep
 credentials/.ssh/**
+!credentials/.ssh/.gitkeep
 credentials/argo-ssh/*.secret

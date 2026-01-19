@@ -15,9 +15,10 @@ services:
       - ./credentials/argo-ssh:/workspace/argo-ssh
       # TODO: make this even more modular!
       - ./k8s-default-ressources:/workspace/k8s-default-ressources
-    ports:
-      - 8080:8080 # for argoCD portforwarding
-      - 8181:8181 # for oci authentication portforwarding
+    # ports:
+      # - 8080:8080 # for argoCD portforwarding
+      # - 8181:8181 # for oci authentication portforwarding
     working_dir: /workspace
     # environment:
     #   - KUBECONFIG=~/.kube/free-k8s-config
+    #   - OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING=True
