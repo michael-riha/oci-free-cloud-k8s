@@ -15,12 +15,14 @@
 	],
 	"settings": {
 		"files.exclude": {
-			"./k8s-default-resources": true,
+			"k8s-default-resources/**": true,
 		},
-		// "search.exclude": {
-		// 		"./k8s-default-resources/": true
-		// },
+		"search.exclude": {
+				"./k8s-default-resources/": true,
+				"*.code-workspace": true,
+		},
 		"git.ignoreLimitWarning": true,
 		"git.path": "git",
+		"files.insertFinalNewline": true,
 	}
 }
