@@ -36,12 +36,12 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/h
     | tee /etc/apt/sources.list.d/hashicorp.list
 RUN apt-get update && apt-get install -y terraform
 
-# Install kubectl
+# Install kubectl -> https://kubernetes.io/releases/download/
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 RUN chmod +x kubectl \
     && mv kubectl /usr/local/bin/
 
-# Install kubeseal - to get the cluster running for gitOps install kubeseal as well
+# Install kubeseal - to get the cluster running for gitOps install kubeseal as well -> https://github.com/bitnami-labs/sealed-secrets/releases
 # https://github.com/bitnami-labs/sealed-secrets?tab=readme-ov-file#linux
 RUN curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION:?}/kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz" \
     && tar -xvzf kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz kubeseal \
