@@ -63,4 +63,3 @@ credentials/.oci/**
 !credentials/.oci/.gitkeep
 credentials/.ssh/**
 !credentials/.ssh/.gitkeep
-credentials/argo-ssh/*.secret
