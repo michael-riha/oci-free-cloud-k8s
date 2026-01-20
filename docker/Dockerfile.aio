@@ -1,7 +1,9 @@
 FROM ubuntu:24.04
 
 ARG KUBESEAL_VERSION="0.24.2"
-
+# for multi arch builds
+ARG TARGETOS
+ARG TARGETARCH
 # Install all packages on ubuntu based on the install description in their pages as of Q4/2025
 
 # Install necessary packages
@@ -37,12 +39,12 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/h
 RUN apt-get update && apt-get install -y terraform
 
 # Install kubectl -> https://kubernetes.io/releases/download/
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/${TARGETARCH}/kubectl"
 RUN chmod +x kubectl \
     && mv kubectl /usr/local/bin/
 
-# Install kubeseal - to get the cluster running for gitOps install kubeseal as well -> https://github.com/bitnami-labs/sealed-secrets/releases
+# Install kubeseal - to get the cluster running for gitOps install kubeseal as well -> https://github.com/bitnami-labs/sealed-secrets/releases/tag/v0.24.2
 # https://github.com/bitnami-labs/sealed-secrets?tab=readme-ov-file#linux
-RUN curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION:?}/kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz" \
-    && tar -xvzf kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz kubeseal \
+RUN curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION:?}/kubeseal-${KUBESEAL_VERSION:?}-linux-${TARGETARCH}.tar.gz" \
+    && tar -xvzf kubeseal-${KUBESEAL_VERSION:?}-linux-${TARGETARCH}.tar.gz kubeseal \
     && install -m 755 kubeseal /usr/local/bin/kubeseal
