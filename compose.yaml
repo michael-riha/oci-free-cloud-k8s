@@ -19,6 +19,7 @@ services:
       # - 8080:8080 # for argoCD portforwarding
       # - 8181:8181 # for oci authentication portforwarding
     working_dir: /workspace
-    # environment:
+    environment:
+      - OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING=True
     #   - KUBECONFIG=~/.kube/free-k8s-config
-    #   - OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING=True
+
