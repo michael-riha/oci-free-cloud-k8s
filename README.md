@@ -1,9 +1,9 @@
-# Oracle Inital Setup
+## Oracle Inital Setup
 
 - Create an Account
 - [Get & Setup the necessary credentials for your OCI CLI](./credentials/README.md) to create Ressources with Terraform
 
-# Terraform deploy/create k8s Cluster:
+## Terraform deploy/create k8s Cluster:
 
 - For the config part, you need to copy the `terraform.tfvars_template` and rename it to a private `terraform.tfvars` and add the required values (terraform/infra)
 - inside the container (`docker compose exec aio /bin/bash`)
@@ -14,7 +14,16 @@
     - `root@...:/workspac/oci-infra# terraform apply`
       - Type `yes` when prompted with  `Enter a value:`
 
+## Kubernetes Resource Setup and Configuration
 
+Make sure that you have checkout "like a submodel" to `./k8s-default-ressources` from https://github.com/michael-riha/k8s-default-ressources
+
+> [!WARNING]
+> I am well aware that it is not the proper use as a git `submodule` but it never worked as expected
+> Currently we are in favor to use `VSC` as IDE and this setup works compared to `submodules`, sorry!
+> Any Input tough, very welcome
+
+GOTO [Kubernetes Resource Setup and Configuration](./k8s-default-ressources/README.md)
 
 ---
 
