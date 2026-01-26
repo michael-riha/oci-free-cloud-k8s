@@ -4,8 +4,8 @@ services:
       context: ./docker
       dockerfile: Dockerfile.aio
     image: terraform-oci-kubectl-kubeseal:0.1
-    #image: ghcr.io/oracle/oci-cli:latest
-    # entrypoint: sh
+    # public 
+    # image: miriha/oracle-oci-k8s-all-in-one:latest
     entrypoint: tail -f /dev/null
     volumes:
       - ./credentials/.oci:/root/.oci
