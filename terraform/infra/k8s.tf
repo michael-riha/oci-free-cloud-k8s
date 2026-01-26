@@ -57,20 +57,32 @@ resource "oci_containerengine_node_pool" "k8s_node_pool" {
     user_data = base64encode(file("files/node-pool-init.sh"))
   }
 
+#  node_config_details {
+#    placement_configs {
+#      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
+#      subnet_id           = oci_core_subnet.vcn_private_subnet.id
+#    }
+
+#    placement_configs {
+#      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[1].name
+#      subnet_id           = oci_core_subnet.vcn_private_subnet.id
+#    }
+
+#    placement_configs {
+#      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[2].name
+#      subnet_id           = oci_core_subnet.vcn_private_subnet.id
+#    }
+
+#    size = var.kubernetes_worker_nodes
+#  }
+
   node_config_details {
-    placement_configs {
-      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[0].name
-      subnet_id           = oci_core_subnet.vcn_private_subnet.id
-    }
-
-    placement_configs {
-      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[1].name
-      subnet_id           = oci_core_subnet.vcn_private_subnet.id
-    }
-
-    placement_configs {
-      availability_domain = data.oci_identity_availability_domains.ads.availability_domains[2].name
-      subnet_id           = oci_core_subnet.vcn_private_subnet.id
+    dynamic "placement_configs" {
+      for_each = data.oci_identity_availability_domains.ads.availability_domains
+      content {
+        availability_domain = placement_configs.value.name
+        subnet_id           = oci_core_subnet.vcn_private_subnet.id
+      }
     }
 
     size = var.kubernetes_worker_nodes
@@ -92,5 +104,5 @@ resource "oci_containerengine_node_pool" "k8s_node_pool" {
     key   = "name"
     value = "k8s-cluster"
   }
-  ssh_public_key = var.ssh_public_key
+  ssh_public_key = file(var.ssh_public_key_path)
 }

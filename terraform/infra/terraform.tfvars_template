@@ -1,0 +1,4 @@
+compartment_id   = "<found in ~.oci/config -> tenancy>"
+region            = "<found in ~.oci/config -> region>"
+# needs to be created from the private *.pem key
+ssh_public_key_path   = "<found in credentials/.oci/oci_api_key_public.pub>"

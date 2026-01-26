@@ -30,10 +30,14 @@ Inside the Identity Area of the Oracle Cloud Console, follow these steps:
 - https://cloud.oracle.com/identity/domains/my-profile/auth-tokens
     - Click `Add API key`
     - Select any Option: For simpicity we pick "Generate API key pair"
-        - Click "Download private key" -> copy it to `./credentials/.oci/oci_api_key.pem`
-        - Click "Download public key" -> copy it to `./credentials/.oci/oci_api_key_public.pem`
-    - Click add & copy the `config`-File -> `./credentials/.oci/config`
-        - replace the public key in the #TODO placeholder
+        - Click "Download private key" -> copy & rename it to `./credentials/.oci/oci_api_key.pem`
+        - Click "Download public key" -> copy & rename it to `./credentials/.oci/oci_api_key_public.pem`
+    - Once downloaded 
+        - Click Add-Button (in Oracle Cloud Console)
+        - Copy (Configuration **file preview content**) into the `config`-File -> `./credentials/.oci/config`
+            - replace the **private** key in the #TODO placeholder (e.g. in Docker): `key_file=~/.oci/oci_api_key.pem`)
+    - OKE requires the public key (typically .pub or id_rsa.pub format).
+        - 
 
 ### Setup OCI CLI
 
@@ -49,9 +53,19 @@ Mostly the OCI CLI will complain about
 
 #### Test it:
 
+(step into [`idle`-container](../compose.yaml#L8): `docker compose exec aio /bin/bash`)
+
 `oci iam user list --all`
 
 should return the current User information in JSON format of your initial user.
+
+### 🏗️ Last Step to Create OKE Infrastrcuture:
+
+OKE requires the public key (typically .pub or id_rsa.pub format).
+
+(step into [`idle`-container](../compose.yaml#L8): `docker compose exec aio /bin/bash`)
+
+`ssh-keygen -y -f ~/.oci/oci_api_key.pem > ~/.oci/oci_api_key_public.pub`
 
 #### Possible already create a Bucket
 

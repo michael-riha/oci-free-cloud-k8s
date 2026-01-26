@@ -3,6 +3,18 @@
 - Create an Account
 - [Get & Setup the necessary credentials for your OCI CLI](./credentials/README.md) to create Ressources with Terraform
 
+# Terraform deploy/create k8s Cluster:
+
+- For the config part, you need to copy the `terraform.tfvars_template` and rename it to a private `terraform.tfvars` and add the required values (terraform/infra)
+- inside the container (`docker compose exec aio /bin/bash`)
+  - `root@...:/workspace# cd oci-infra`
+  - TODO: (for now without a backend) 
+    - `root@...:/workspac/oci-infra# terraform init -backend=false` (https://developer.hashicorp.com/terraform/cli/commands/init#:~:text=To%20skip%20backend%20configuration%2C%20use%20%2Dbackend%3Dfalse)
+    - `root@...:/workspac/oci-infra# terraform plan` [(NOW YOU CANNOT IGNORE `backend` ANYMORE. TODO: make moire variable)](./terraform/infra/_terraform.tf#L5-9)
+    - `root@...:/workspac/oci-infra# terraform apply`
+      - Type `yes` when prompted with  `Enter a value:`
+
+
 
 ---
 

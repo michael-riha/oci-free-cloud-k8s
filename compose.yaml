@@ -22,4 +22,3 @@ services:
     environment:
       - OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING=True
     #   - KUBECONFIG=~/.kube/free-k8s-config
-
