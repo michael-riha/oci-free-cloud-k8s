@@ -36,8 +36,6 @@ Inside the Identity Area of the Oracle Cloud Console, follow these steps:
         - Click Add-Button (in Oracle Cloud Console)
         - Copy (Configuration **file preview content**) into the `config`-File -> `./credentials/.oci/config`
             - replace the **private** key in the #TODO placeholder (e.g. in Docker): `key_file=~/.oci/oci_api_key.pem`)
-    - OKE requires the public key (typically .pub or id_rsa.pub format).
-        - 
 
 ### Setup OCI CLI
 
@@ -59,14 +57,6 @@ Mostly the OCI CLI will complain about
 
 should return the current User information in JSON format of your initial user.
 
-### 🏗️ Last Step to Create OKE Infrastrcuture:
-
-OKE requires the public key (typically .pub or id_rsa.pub format).
-
-(step into [`idle`-container](../compose.yaml#L8): `docker compose exec aio /bin/bash`)
-
-`ssh-keygen -y -f ~/.oci/oci_api_key.pem > ~/.oci/oci_api_key_public.pub`
-
 #### Possible already create a Bucket
 
 `oci os bucket create --name terraform-states --versioning Enabled --compartment-id <from ./.oci/config -> tenancy value>`
@@ -75,13 +65,22 @@ OKE requires the public key (typically .pub or id_rsa.pub format).
 
 `oci os bucket delete --name terraform-states`
 
+### 🏗️ Last Step to Create OKE Infrastrcuture:
+
+OKE requires the public key (typically .pub or id_rsa.pub format).
+
+(step into [`idle`-container](../compose.yaml#L8): `docker compose exec aio /bin/bash`)
+
+`ssh-keygen -y -f ~/.oci/oci_api_key.pem > ~/.oci/oci_api_key_public.pub`
+
 ### Educate yourself:
 
 The official Command Reference https://docs.oracle.com/en-us/iaas/tools/oci-cli/latest/oci_cli_docs/index.html
 
 # [Back to get k8s Up 🚀](../README.md#:~:text=create%20a%20bucket-,initially,-%3A)
 
-## GitHub
+
+
+## TODO: GitHub
 
 TODO: describe how to generate ssh-key for github access to be used by Argo!
-
