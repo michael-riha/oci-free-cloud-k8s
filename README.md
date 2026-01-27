@@ -13,7 +13,13 @@
     - `root@...:/workspac/oci-infra# terraform plan` [(NOW YOU CANNOT IGNORE `backend` ANYMORE. TODO: make moire variable)](./terraform/infra/_terraform.tf#L5-9)
     - `root@...:/workspac/oci-infra# terraform apply`
       - Type `yes` when prompted with  `Enter a value:`
-
+  - ☕️ get something to dring & wait ...
+    - this will take between 10-25min to get your cluster up and running.
+    - Once you see "Apply complete! ... Outputs ..." your cluster is available and connected
+      - Peak into `./credentials/.kube/` there should now be a `config`
+      - Try to run `root@...:/workspac/oci-infra# kubectl get nodes`
+  - NOW 👇️ NEXT STEP
+  
 ## Kubernetes Resource Setup and Configuration
 
 Make sure that you have checkout "like a submodel" to `./k8s-default-ressources` from https://github.com/michael-riha/k8s-default-ressources
