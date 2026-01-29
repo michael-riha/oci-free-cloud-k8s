@@ -14,10 +14,10 @@ services:
       # for services deployment and `kubeseal`
       - ./credentials/argo-ssh:/workspace/argo-ssh
       # TODO: make this even more modular!
-      - ./k8s-default-ressources:/workspace/k8s-default-ressources
-    # ports:
-      # - 8080:8080 # for argoCD portforwarding
-      # - 8181:8181 # for oci authentication portforwarding
+      - ./k8s-default-resources:/workspace/k8s-default-resources
+    ports:
+      - 8080:8080 # for argoCD portforwarding
+      - 8181:8181 # for oci authentication portforwarding
     working_dir: /workspace
     environment:
       - OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING=True
