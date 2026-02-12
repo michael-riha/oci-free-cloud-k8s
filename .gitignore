@@ -63,3 +63,5 @@ credentials/.oci/**
 !credentials/.oci/.gitkeep
 credentials/.ssh/**
 !credentials/.ssh/.gitkeep
+# Ignore postfix env
+docker/postfix.env

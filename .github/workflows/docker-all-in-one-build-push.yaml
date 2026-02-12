@@ -1,5 +1,4 @@
 name: Deploy multi-arch (AMD64 and ARM64) as one image to Dockerhub
-# TODO: multiarch
 on:
   push:
     branches:

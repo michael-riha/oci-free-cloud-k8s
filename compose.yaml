@@ -22,3 +22,35 @@ services:
     environment:
       - OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING=True
     #   - KUBECONFIG=~/.kube/free-k8s-config
+  postfix:
+    build: 
+      context: ./docker
+      dockerfile: Dockerfile.postfix
+    image: terraform-oci-postfix-relay:0.1
+    entrypoint: tail -f /dev/null # 
+    # entrypoint: ./entrypoint.sh postfix start-fg
+    dns: 
+    # use public DNS to resolve the relay host
+      - 8.8.8.8
+      - 1.1.1.1
+    # # Fallback option use host network - container shares host's network stack
+    # network_mode: "host"
+    env_file:
+      - ./docker/postfix.env
+    # environment:
+    #   # Optional: override config file values
+    #   - HOSTNAME=postfix-relay
+    #   - DOMAIN=localdomain
+    #   - RELAY_HOST=
+    #   - RELAY_PORT=
+    #   - SMTP_USER=
+    #   - SMTP_PASSWORD=
+    volumes:
+        # Mount your config directory
+      - ./docker/postfix-service/main.cf.template:/main.cf.template
+      - ./docker/postfix-service/entrypoint.sh:/entrypoint.sh
+    ports:
+      - 25:25
+      # - 587:587
+    profiles:
+      - postfix

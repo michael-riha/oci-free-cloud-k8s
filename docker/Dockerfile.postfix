@@ -1,0 +1,21 @@
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    postfix \
+    libsasl2-modules \
+    mailutils \
+     # for debugging
+    dnsutils \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY ./postfix-service/main.cf.template /main.cf.template
+COPY ./postfix-service/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 25
+
+# Set entrypoint
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["postfix", "start-fg"]

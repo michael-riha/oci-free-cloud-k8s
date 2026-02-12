@@ -31,3 +31,24 @@ variable "kubernetes_worker_nodes" {
 
   default = 2
 }
+
+# Email Delivery Feature Flag
+variable "enable_email_delivery" {
+  description = "Enable OCI Email Delivery service. When false, ed.tf is effectively ignored."
+  type        = bool
+  default     = false
+}
+
+# Email Delivery Configuration (null when disabled)
+variable "email_delivery_config" {
+  description = "Email Delivery configuration. Only used if enable_email_delivery = true."
+  type = object({
+    domain                    = string
+    approved_senders          = list(string)
+    generate_smtp_credentials = optional(bool, true)
+    smtp_user_name           = optional(string, "email-smtp-user")
+    smtp_user_email          = optional(string, null)
+    suppressed_recipients    = optional(list(string), [])
+  })
+  default = null
+}

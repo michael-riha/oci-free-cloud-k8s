@@ -1,6 +1,7 @@
 FROM ubuntu:24.04
 
 ARG KUBESEAL_VERSION="0.24.2"
+ARG HELM_VERSION="3.18.4"
 # for multi arch builds
 ARG TARGETOS
 ARG TARGETARCH
@@ -48,3 +49,12 @@ RUN chmod +x kubectl \
 RUN curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION:?}/kubeseal-${KUBESEAL_VERSION:?}-linux-${TARGETARCH}.tar.gz" \
     && tar -xvzf kubeseal-${KUBESEAL_VERSION:?}-linux-${TARGETARCH}.tar.gz kubeseal \
     && install -m 755 kubeseal /usr/local/bin/kubeseal
+
+# Install helm - for debugging and package management
+# https://github.com/argoproj/argo-cd/tree/v3.1.8 -> helm 3.18.4 | https://helm.sh/docs/intro/install/
+# https://github.com/helm/helm/releases/tag/v3.18.4
+# https://get.helm.sh/helm-v3.18.4-linux-arm64.tar.gz
+# https://get.helm.sh/helm-v3.18.4-linux-amd64.tar.gz
+RUN curl -OL "https://get.helm.sh/helm-v${HELM_VERSION:?}-linux-${TARGETARCH}.tar.gz" \
+    && tar -zxvf helm-v${HELM_VERSION:?}-linux-${TARGETARCH}.tar.gz \
+    && mv linux-${TARGETARCH}/helm /usr/local/bin/helm

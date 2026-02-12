@@ -1,0 +1,39 @@
+# Default values (overridden by env vars if set)
+myhostname = HOSTNAME
+mydomain = DOMAIN
+
+# OCI Email Delivery - Port 465 SMTPS
+# https://docs.oracle.com/en-us/iaas/Content/Email/Reference/postfix.htm 
+relayhost = [RELAY_HOST]:RELAY_PORT
+
+## TLS Configuration (required by Oracle)
+smtp_tls_mandatory_protocols = TLSv1.2
+smtp_use_tls = yes
+# smtp_tls_wrappermode = yes
+smtp_tls_security_level = encrypt
+smtp_tls_mandatory_ciphers = high
+
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_sasl_tls_security_options = noanonymous
+smtp_sasl_mechanism_filter = plain, login
+
+mynetworks = 127.0.0.0/8 172.16.0.0/12 192.168.0.0/16 10.0.0.0/8
+
+inet_interfaces = all
+# Force IPv4 only to avoid AAAA lookup issues
+inet_protocols = ipv4
+smtp_address_preference = ipv4
+
+maillog_file = /dev/stdout
+debug_peer_level = 10
+
+# local_transport = error:local delivery is disabled
+# mydestination =
+# local_recipient_maps =
+
+# smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+# smtpd_recipient_restrictions = permit_mynetworks permit_sasl_authenticated reject_unauth_destination
+
+message_size_limit = 52428800

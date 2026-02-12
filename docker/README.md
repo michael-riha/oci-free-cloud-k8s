@@ -19,3 +19,20 @@ RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o server .
 - `uname -m` -> `x86_64` or `aarch64`
 - TARGETARCH is a built-in BuildKit variable in Docker that indicates the CPU architecture
     - like `amd64`, `arm64`, `arm/v7` for multi-platform builds
+
+## Build postfix
+
+`docker compose --profile postfix build`
+
+## Test postfix-relay
+
+> [Postfix daemon processes rund in a chroot jail.<br>A chroot jail is a way to isolate a process and its children from the rest of the system. It should only be used for processes that don't run as root, as root users can break out of the jail very easily.](https://www.postfix.org/BASIC_CONFIGURATION_README.html#:~:text=in%20Postfix%20logging.-,Running%20Postfix%20daemon%20processes%20chrooted,-Postfix%20daemon%20processes)
+
+This is the reason why DNS is not working out of the box [so we needed to do line 19 in the `entrypoint.sh`](./postfix-service/entrypoint.sh#L19)
+
+### Run the postfix container
+`docker compose --profile postfix exec postfix /bin/bash`
+
+`echo "This is a test message" | mail -s "Test" -r <approved sender email address> <recipient email address>`
+
+echo "This is a test message" | mail -s "Test" -r noreply@oke1.bey.media michael.riha@gmail.com
