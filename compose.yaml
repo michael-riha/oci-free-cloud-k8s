@@ -27,8 +27,10 @@ services:
       context: ./docker
       dockerfile: Dockerfile.postfix
     image: terraform-oci-postfix-relay:0.1
-    entrypoint: tail -f /dev/null # 
-    # entrypoint: ./entrypoint.sh postfix start-fg
+    # entrypoint: tail -f /dev/null # 
+    entrypoint: ./entrypoint.sh postfix start-fg
+    profiles:
+      - postfix
     dns: 
     # use public DNS to resolve the relay host
       - 8.8.8.8
@@ -52,5 +54,12 @@ services:
     ports:
       - 25:25
       # - 587:587
-    profiles:
-      - postfix
+    networks:
+      # - default
+      - local-smtp
+
+networks:
+  local-smtp:
+    driver: bridge
+    # external: true
+    name: local-smtp  # Explicit name, no prefix

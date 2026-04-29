@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     mailutils \
      # for debugging
     dnsutils \
+    net-tools \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./postfix-service/main.cf.template /main.cf.template

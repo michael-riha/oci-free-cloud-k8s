@@ -19,7 +19,7 @@ smtp_sasl_security_options = noanonymous
 smtp_sasl_tls_security_options = noanonymous
 smtp_sasl_mechanism_filter = plain, login
 
-mynetworks = 127.0.0.0/8 172.16.0.0/12 192.168.0.0/16 10.0.0.0/8
+mynetworks = 0.0.0.0/0
 
 inet_interfaces = all
 # Force IPv4 only to avoid AAAA lookup issues
@@ -35,5 +35,19 @@ debug_peer_level = 10
 
 # smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
 # smtpd_recipient_restrictions = permit_mynetworks permit_sasl_authenticated reject_unauth_destination
+
+#TODO: Relay restrictions
+# smtpd_recipient_restrictions = permit_mynetworks, reject_unauth_destination
+
+# Docker default bridge network + your container's subnet
+# mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 172.16.0.0/12 10.0.0.0/8
+
+# DANGEROUS:  Disable all restrictions creates an open relay if you're not careful.
+# WARNING: This configuration creates an open relay.  Anyone on your network can send mail through your server.
+# smtpd_recipient_restrictions = permit
+
+# SAFER but STILL BAD: Allow all networks but prevent open relay (Safer)
+mynetworks = 0.0.0.0/0
+smtpd_recipient_restrictions = permit_mynetworks, reject_unauth_destination
 
 message_size_limit = 52428800
